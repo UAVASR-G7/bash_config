@@ -143,7 +143,8 @@ disros
 function gcs (){
 	echo "Starting GCS Tmux session for EGH450 UAV control"
 	tmux new-session -s gcs\; set -g mouse on\; send-keys "rosrun gcs_vocal listener.py" C-m\; \
-	split-window -h\; send-keys "rqt --perspective-file rqt-config.perspective" C-m\;
+	split-window -h\; send-keys "rqt --perspective-file rqt-config.perspective" C-m\; \
+	split-window -v\; send-keys "tmux kill-server";
 }
 
 export -f gcs
