@@ -193,15 +193,93 @@ function run450(){
     sleep 2
     tmux new-session -s cdrone\; set -g mouse on\; send-keys "roscore" C-m\; split-window -h -p 85\; select-pane -t 0\; split-window -v\;                   \
         send-keys "htop" C-m\; select-pane -t 2\; split-window -h\; select-pane -t 2\;                   \
-        send-keys "rosrun spar_node demo_wp" \; split-window -v -p 75\;               \
+        send-keys "roslaunch spar_node demo_wp_roi.launch" \; split-window -v -p 75\;               \
         send-keys "roslaunch ~/${catkin_ws}/launch/control.launch" \; split-window -v -p 60\;                                 \
         send-keys "sleep 10; roslaunch qutas_lab_450 environment.launch" C-m\; split-window -v \;                                        \
-        send-keys "rosrun depthai_publisher dai_publisher" \;  select-pane -t 6\;                                   \
+        send-keys "rosrun depthai_publisher dai_publisher_yolov5_runner" \;  select-pane -t 6\;                                   \
         send-keys "rosrun depthai_publisher aruco_subscriber" \;  split-window -v -p 85\;                      \
-        send-keys "rostopic echo /mavros/local_position/pose" \; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
-        send-keys "rostopic echo /mavros/vision_position/pose" \; select-pane -t 9\;                                                 \
-        send-keys "" \; split-window -v -p 10\;                             \
-        send-keys "tmux kill-session" \;
+        send-keys "rostopic echo /mavros/local_position/pose"\; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
+        send-keys "rostopic echo /mavors/vision_position/pose"\; select-pane -t 9\;                                                 \
+        send-keys "sleep 5; rosrun spar_node tf2_listener" C-m\; split-window -h -p 100\;                             \
+        send-keys "sleep 15; roslaunch ~/catkin_ws/src/breadcrumb/launch/breadcrumb.launch" C-m\; split-window -v -p 50\;			\
+        send-keys "sleep 5; rosrun spar_node tf2_broadcaster_frames" C-m\; select-pane -t 10\; split-window -v -p 50\; 			\
+        send-keys "sleep 5; roslaunch ~/catkin_ws/launch/pose_estimator.launch" C-m\;	select-pane -t 0\; split-window -v\;	\
+    	send-keys "sleep 5; rosrun pd_control ROSI2.py" C-m\;
 }
+#send-keys "rostopic echo /mavros/local_position/pose" \; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
+#send-keys "rostopic echo /mavros/vision_position/pose" \; select-pane -t 9\; 
+
+#function run450(){
+#	echo "Starting Tmux session for EGH450 UAV control"
+#	sleep 2
+#	
+#	# start a new tmux session named 'cdrone'
+#	tmux new-session -s cdrone\;set -g mouse on\;
+#	
+#	# Enable mouse mode
+#	#set -g mouse on\;
+#	
+#	# pane 0: start roscore
+#	send-keys "roscore" C-m\;
+#	
+#	# split window horizontally (pane 1)
+#	split-window -h -p 85\;
+#
+#	# split pane 0 vertically (pane 2)
+#	select-pane -t 0\;
+#	split-window -v\;
+#	send-keys "htop" C-m\;
+#	
+#	# pane 2: roslaunch spar_node demo_wp_roi.launch
+#	select-pane -t 2\;
+#	split-window -h\;
+#	select-pane -t 2\;
+#	send-keys "roslaunch spar_node demo_wp_roi.launch" C-m\;
+#	
+#	# pane 3: control.launch
+#	split-window -v -p 75\;
+#	send-keys "roslaunch ~/${catkin_ws}/launch/control.launch" C-m\;
+#	
+#	# pane 4: environment.launch
+#	split-window -v -p 60\;
+#	send-keys "sleep10; roslaunch qutas_lab_450 environment.launch" C-m\;
+#	
+#	# pane 5: depthai_publisher with yolo5 runner
+#	split-window -v\;
+#	send-keys "rosrun depthai_publisher dai_publisher_yolov5_runner" C-m\;
+#	
+#	# pane 6: aruco marker subscriber
+#	select-pane -t 6\;
+#	split-window -v -p \85;
+#	send-keys "rosrun depthai_publisher aruco_subscriber" C-m\;
+#	
+#	# pane 7: tf2 broadcaster
+#	split-window -v -p 80\;
+#	send-keys "rosrun spar_node tf2_broadcaster_frames" C-m\;
+#	
+#	# pane 8: tf2 listener
+#	select-pane -t 7\;
+#	split-window -h\;
+#	send-keys "rosrun spar_node tf2_listener" C-m\;
+#	
+#	# pane 9: split horizontally to the right for breadcrumb.launch
+#	select-pane -t 8\;split-window -h\;
+#	send-keys "sleep 15; roslaunch ~/catkin_ws/src/breadcrumb/launch/breadcrumb.launch" C-m\;\
+#	
+#	# pane 10: split the new breadcrumb window vertically (top pane)
+#	select-pane -t 9\;split-window -v -p 50\;
+#	send-keys "rostopic echo /mavros/vision_position/pose" C-m\;
+#	
+#	# pane 11: split vertically for the bottom pane
+#	select-pane -t 10\;
+#	split-window -v -p 50\;
+#	send-keys "/mavros/local_position/pose" C-m\;
+#	
+#	# pane 12: pose estimator
+#	select-pane -t 11\;
+#	split-window -v -p 10\;
+#	send-keys "roslaunch ~/catkin_ws/launch/pose_estimator.launch" C-m\;
+#}
+#
 
 export -f run450
