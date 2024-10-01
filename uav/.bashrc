@@ -219,8 +219,8 @@ function m1run450(){
         send-keys "sleep 10; roslaunch qutas_lab_450 environment.launch" C-m\; split-window -v \; \
         send-keys "sleep 10; rosrun depthai_publisher dai_publisher_yolov5_runner1" C-m\; split-window -h -p 80\; select-pane -t 6\;\
         send-keys "sleep 15; rosrun depthai_publisher aruco_subscriber" C-m\;  select-pane -t 7\;\
-        send-keys "rostopic echo /mavros/local_position/pose" C-m\; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
-        send-keys "rostopic echo /mavors/vision_position/pose" C-m\; select-pane -t 9\;\
+        send-keys "sleep 30; rostopic echo /mavros/local_position/pose" C-m\; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
+        send-keys "sleep 30; rostopic echo /mavros/vision_position/pose" C-m\; select-pane -t 9\;\
         send-keys "sleep 5; rosrun spar_node tf2_listener" C-m\; select-pane -t 9\; split-window -v -p 80\;\
         send-keys "sleep 5; rosrun pd_control ROSI2.py" C-m\; select-pane -t 10\; split-window -v -p 70\;\
         send-keys "" \; split-window -h -p 70\; \
@@ -241,8 +241,8 @@ function m2run450(){
         send-keys "sleep 10; roslaunch qutas_lab_450 environment.launch" C-m\; split-window -v \; \
         send-keys "sleep 10; rosrun depthai_publisher dai_publisher_yolov5_runner2" C-m\; split-window -h -p 80\; select-pane -t 6\;\
         send-keys "sleep 15; rosrun depthai_publisher aruco_subscriber" C-m\;  select-pane -t 7\;\
-        send-keys "rostopic echo /mavros/local_position/pose" C-m\; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
-        send-keys "rostopic echo /mavors/vision_position/pose" C-m\; select-pane -t 9\;\
+        send-keys "sleep 30; rostopic echo /mavros/local_position/pose" C-m\; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
+        send-keys "sleep 30; rostopic echo /mavros/vision_position/pose" C-m\; select-pane -t 9\;\
         send-keys "sleep 5; rosrun spar_node tf2_listener" C-m\; select-pane -t 9\; split-window -v -p 80\;\
         send-keys "sleep 5; rosrun pd_control ROSI2.py" C-m\; select-pane -t 10\; split-window -v -p 70\;\
         send-keys "" \; split-window -h -p 70\; \
@@ -283,8 +283,8 @@ function test450(){
         send-keys "sleep 10; roslaunch qutas_lab_450 environment.launch" C-m\; split-window -v \;                                        \
         send-keys "rosrun depthai_publisher dai_publisher_yolov5_runner" \; split-window -h -p 80\; select-pane -t 6\;    \
         send-keys "rosrun depthai_publisher aruco_subscriber" \;  select-pane -t 7\; \
-        send-keys "rostopic echo /mavros/local_position/pose"\; split-window -v -p 80\; select-pane -t 7\; split-window -h\;   \
-        send-keys "rostopic echo /mavors/vision_position/pose"\; select-pane -t 9\;        \
+        send-keys "sleep 30;r ostopic echo /mavros/local_position/pose"\; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
+        send-keys "sleep 30; rostopic echo /mavors/vision_position/pose"\; select-pane -t 9\;                                                 \
         send-keys "sleep 5; rosrun spar_node tf2_listener" C-m\; select-pane -t 9\; split-window -v -p 80\;       \
         send-keys "rosrun pd_control ROSI2.py"\; select-pane -t 10\; split-window -v -p 70\;       \
         send-keys "rviz -d RVIZ_SAVE.rviz" \; split-window -h -p 70\; \
