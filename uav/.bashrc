@@ -253,23 +253,26 @@ function m2run450(){
 
 # Activate multiple terminals for emulator
 function emurun450(){
-    echo "Starting Tmux session for EGH450 UAV control"
+    echo "Starting Tmux session for emulated EGH450 UAV control Mission 1"
     sleep 2
     tmux new-session -s cdrone\; set -g mouse on\; \
-        send-keys "roscore" C-m\; split-window -h -p 85\; select-pane -t 0\; split-window -v\;                   \
-        send-keys "htop" C-m\; select-pane -t 2\; split-window -h\; select-pane -t 2\;                   \
-        send-keys "roslaunch spar_node demo_wp_roi.launch" \; split-window -v -p 75\;               \
-        send-keys "roslaunch spar_node spar_uavasr.launch" \; split-window -v -p 60\;                                 \
-        send-keys "sleep 10; roslaunch qutas_lab_450 environment.launch" C-m\; split-window -v \;                                        \
-        send-keys "rosrun depthai_publisher dai_publisher_yolov5_runner" \;  select-pane -t 6\;                                   \
-        send-keys "rosrun depthai_publisher aruco_subscriber" \;  split-window -v -p 85\;                      \
-        send-keys "rostopic echo /mavros/local_position/pose"\; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
-        send-keys "rostopic echo /mavors/vision_pose/pose"\; select-pane -t 9\;                                                 \
-        send-keys "sleep 5; rosrun spar_node tf2_listener" C-m\; split-window -h -p 100\;                             \
-        send-keys "sleep 15; roslaunch ~/catkin_ws/src/breadcrumb/launch/breadcrumb.launch" C-m\; split-window -v -p 50\;			\
-        send-keys "sleep 5; rosrun spar_node tf2_broadcaster_frames" C-m\; select-pane -t 10\; split-window -v -p 50\; 			\
-        send-keys "rviz -d RVIZ_SAVE.rviz"\;			
+        send-keys "roscore" C-m\; split-window -h -p 85\; select-pane -t 0\; split-window -v\; \
+        send-keys "htop" C-m\; select-pane -t 2\; split-window -h\; select-pane -t 2\;\
+        send-keys "roslaunch spar_node demo_wp_roi.launch" \; split-window -v -p 75\;\
+        send-keys "sleep 10; roslaunch spar_node spar_uavasr.launch" C-m\; split-window -v -p 60\;\
+        send-keys "sleep 12; roslaunch qutas_lab_450 environment.launch" C-m\; split-window -v \; \
+        send-keys "sleep 14; rosrun depthai_publisher dai_publisher_yolov5_runner1" C-m\; split-window -h -p 80\; select-pane -t 6\;\
+        send-keys "sleep 16; rosrun depthai_publisher aruco_subscriber" C-m\;  select-pane -t 7\;\
+        send-keys "sleep 30; rostopic echo /mavros/local_position/pose" C-m\; split-window -v -p 80\; select-pane -t 7\; split-window -h\; \
+        send-keys "sleep 30; rostopic echo /mavros/vision_pose/pose" C-m\; select-pane -t 9\;\
+        send-keys "sleep 5; rosrun spar_node tf2_listener" C-m\; select-pane -t 9\; split-window -v -p 80\;\
+        send-keys "sleep 5; rosrun pd_control ROSI3.py" C-m\; select-pane -t 10\; split-window -v -p 70\;\
+        send-keys "sleep 5; rviz -d RVIZ_SAVE.rviz" C-m\; split-window -h -p 70\; \
+        send-keys "sleep 15; roslaunch ~/catkin_ws/src/breadcrumb/launch/breadcrumb.launch" C-m\; split-window -v -p 80\;\
+        send-keys "sleep 5; rosrun spar_node tf2_broadcaster_frames" C-m\; select-pane -t 13\; split-window -v -p 50\;\
+        send-keys "tmux kill-session"\;				
 }
+
 
 # Testing
 function test450(){
